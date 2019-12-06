@@ -75,4 +75,17 @@ public class NeteaseConfig {
     public void setCharset(String charset) {
         this.charset = charset;
     }
+
+    @Override
+    public String toString() {
+        return "NeteaseConfig{" +
+                "modules='" + modules + '\'' +
+                ", nonce='" + nonce + '\'' +
+                ", pubKey='" + pubKey + '\'' +
+                ", keyAlgorithm='" + keyAlgorithm + '\'' +
+                ", defaultKeyAlgorithm='" + defaultKeyAlgorithm + '\'' +
+                ", ivParameter='" + ivParameter + '\'' +
+                ", charset='" + charset + '\'' +
+                '}';
+    }
 }
