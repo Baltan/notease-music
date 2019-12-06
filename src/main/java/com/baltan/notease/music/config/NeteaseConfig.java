@@ -19,6 +19,7 @@ public class NeteaseConfig {
     private String defaultKeyAlgorithm;
     private String ivParameter;
     private String charset;
+    private String searchSongsRequestUrl;
 
     public String getModules() {
         return modules;
@@ -76,6 +77,14 @@ public class NeteaseConfig {
         this.charset = charset;
     }
 
+    public String getSearchSongsRequestUrl() {
+        return searchSongsRequestUrl;
+    }
+
+    public void setSearchSongsRequestUrl(String searchSongsRequestUrl) {
+        this.searchSongsRequestUrl = searchSongsRequestUrl;
+    }
+
     @Override
     public String toString() {
         return "NeteaseConfig{" +
@@ -86,6 +95,7 @@ public class NeteaseConfig {
                 ", defaultKeyAlgorithm='" + defaultKeyAlgorithm + '\'' +
                 ", ivParameter='" + ivParameter + '\'' +
                 ", charset='" + charset + '\'' +
+                ", searchSongsRequestUrl='" + searchSongsRequestUrl + '\'' +
                 '}';
     }
 }
