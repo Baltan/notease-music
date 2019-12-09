@@ -8,6 +8,10 @@ package com.baltan.notease.music.domain;
  */
 public class Song {
     /**
+     * 歌曲id
+     */
+    private Integer id;
+    /**
      * 歌名
      */
     private String songName;
@@ -23,15 +27,30 @@ public class Song {
      * 时长
      */
     private int duration;
+    /**
+     * 专辑封面
+     */
+    private String albumCoverUrl;
 
     public Song() {
     }
 
-    public Song(String songName, String artist, String album, int duration) {
+    public Song(Integer id, String songName, String artist, String album, int duration,
+                String albumCoverUrl) {
+        this.id = id;
         this.songName = songName;
         this.artist = artist;
         this.album = album;
         this.duration = duration;
+        this.albumCoverUrl = albumCoverUrl;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSongName() {
@@ -66,13 +85,23 @@ public class Song {
         this.duration = duration;
     }
 
+    public String getAlbumCoverUrl() {
+        return albumCoverUrl;
+    }
+
+    public void setAlbumCoverUrl(String albumCoverUrl) {
+        this.albumCoverUrl = albumCoverUrl;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
-                "songName='" + songName + '\'' +
+                "id=" + id +
+                ", songName='" + songName + '\'' +
                 ", artist='" + artist + '\'' +
                 ", album='" + album + '\'' +
                 ", duration=" + duration +
+                ", albumCoverUrl='" + albumCoverUrl + '\'' +
                 '}';
     }
 }
