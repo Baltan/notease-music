@@ -12,28 +12,10 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "http")
 @Component
 public class HttpConfig {
-    private String requestMethodPost;
-    private String requestMethodGet;
     private String contentTypeForm;
     private String contentTypeJson;
     private String contentTypeFormData;
     private String charset;
-
-    public String getRequestMethodPost() {
-        return requestMethodPost;
-    }
-
-    public void setRequestMethodPost(String requestMethodPost) {
-        this.requestMethodPost = requestMethodPost;
-    }
-
-    public String getRequestMethodGet() {
-        return requestMethodGet;
-    }
-
-    public void setRequestMethodGet(String requestMethodGet) {
-        this.requestMethodGet = requestMethodGet;
-    }
 
     public String getContentTypeForm() {
         return contentTypeForm;
@@ -70,9 +52,7 @@ public class HttpConfig {
     @Override
     public String toString() {
         return "HttpConfig{" +
-                "requestMethodPost='" + requestMethodPost + '\'' +
-                ", requestMethodGet='" + requestMethodGet + '\'' +
-                ", contentTypeForm='" + contentTypeForm + '\'' +
+                "contentTypeForm='" + contentTypeForm + '\'' +
                 ", contentTypeJson='" + contentTypeJson + '\'' +
                 ", contentTypeFormData='" + contentTypeFormData + '\'' +
                 ", charset='" + charset + '\'' +
