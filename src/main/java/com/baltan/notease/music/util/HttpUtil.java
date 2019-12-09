@@ -1,9 +1,9 @@
 package com.baltan.notease.music.util;
 
 import com.baltan.notease.music.config.HttpConfig;
-import com.baltan.notease.music.config.NeteaseConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,8 +22,7 @@ import java.util.Map;
  */
 @Component
 public class HttpUtil {
-    private static NeteaseConfig neteaseConfig;
-    private static HttpConfig httpConfig;
+    private static volatile HttpConfig httpConfig;
 
     /**
      * 无法实例化工具类
@@ -32,16 +31,16 @@ public class HttpUtil {
     }
 
     /**
-     * 搜索歌曲
+     * 表单提交POST请求
      *
      * @param paramsMap
      * @throws IOException
      */
-    public static String searchSongs(Map<String, String> paramsMap) throws Exception {
+    public static Map<String, Object> post(Map<String, String> paramsMap, String url) throws Exception {
         StringBuilder result = new StringBuilder();
-        URL requestUrl = new URL(neteaseConfig.getSearchSongsRequestUrl());
+        URL requestUrl = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
-        connection.setRequestMethod(httpConfig.getRequestMethodPost());
+        connection.setRequestMethod(RequestMethod.POST.name());
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setUseCaches(false);
@@ -58,7 +57,7 @@ public class HttpUtil {
         while ((temp = br.readLine()) != null) {
             result.append(temp);
         }
-        return result.toString();
+        return DataUtil.string2Map(result.toString());
     }
 
     /**
@@ -80,11 +79,6 @@ public class HttpUtil {
             builder.append("&");
         }
         return builder.substring(0, builder.length() - 1);
-    }
-
-    @Autowired
-    public void setNeteaseConfig(NeteaseConfig neteaseConfig) {
-        HttpUtil.neteaseConfig = neteaseConfig;
     }
 
     @Autowired
