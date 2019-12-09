@@ -1,10 +1,12 @@
 package com.baltan.notease.music;
 
 import com.alibaba.fastjson.JSON;
+import com.baltan.notease.music.config.NeteaseConfig;
 import com.baltan.notease.music.util.EncryptUtil;
 import com.baltan.notease.music.util.HttpUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -14,6 +16,9 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class NoteaseMusicApplicationTests {
+    @Autowired
+    private NeteaseConfig neteaseConfig;
+
     @Test
     public void testEncryptUtil() throws Exception {
         Map<String, String> requestParams = new HashMap<>();
@@ -52,7 +57,7 @@ public class NoteaseMusicApplicationTests {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("params", paramArray[0]);
         paramsMap.put("encSecKey", paramArray[1]);
-        String songs = HttpUtil.searchSongs(paramsMap);
-        System.out.println(songs);
+        Map<String, Object> response = HttpUtil.post(paramsMap, neteaseConfig.getSearchSongsRequestUrl());
+        System.out.println(response);
     }
 }
