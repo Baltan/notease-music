@@ -5,13 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.io.*;
+import java.net.*;
 import java.util.Map;
 
 /**
@@ -36,26 +31,57 @@ public class HttpUtil {
      * @param paramsMap
      * @throws IOException
      */
-    public static Map<String, Object> post(Map<String, String> paramsMap, String url) throws Exception {
+    public static Map<String, Object> post(Map<String, String> paramsMap, String url) {
         StringBuilder result = new StringBuilder();
-        URL requestUrl = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
-        connection.setRequestMethod(RequestMethod.POST.name());
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
-        connection.setUseCaches(false);
-        connection.setRequestProperty("Content-Type", httpConfig.getContentTypeForm());
+        OutputStreamWriter osw = null;
+        BufferedReader br = null;
 
-        OutputStreamWriter osw =
-                new OutputStreamWriter(connection.getOutputStream(), httpConfig.getCharset());
-        osw.write(createParameter(paramsMap));
-        osw.flush();
+        try {
+            URL requestUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+            connection.setRequestMethod(RequestMethod.POST.name());
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setUseCaches(false);
+            connection.setRequestProperty("Content-Type", httpConfig.getContentTypeForm());
 
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), httpConfig.getCharset()));
-        String temp;
-        while ((temp = br.readLine()) != null) {
-            result.append(temp);
+            osw = new OutputStreamWriter(connection.getOutputStream(), httpConfig.getCharset());
+            osw.write(createParameter(paramsMap));
+            osw.flush();
+
+            br = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream(), httpConfig.getCharset()));
+            String temp;
+
+            while ((temp = br.readLine()) != null) {
+                result.append(temp);
+            }
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (osw != null) {
+                try {
+                    osw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return DataUtil.string2Map(result.toString());
     }
