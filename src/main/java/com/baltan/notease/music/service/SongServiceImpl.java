@@ -2,6 +2,7 @@ package com.baltan.notease.music.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baltan.notease.music.config.NeteaseConfig;
+import com.baltan.notease.music.constant.SearchType;
 import com.baltan.notease.music.util.EncryptUtil;
 import com.baltan.notease.music.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class SongServiceImpl implements SongService {
         /**
          * 1：单曲；10：专辑；100：歌手；1000：歌单；1002：用户
          */
-        requestParams.put("type", "1");
+        requestParams.put("type", SearchType.SONG.name());
         /**
          * 页码偏移量
          */
