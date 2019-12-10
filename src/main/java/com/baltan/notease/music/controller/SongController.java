@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * Description:
+ * Description: 歌曲操作控制层
  *
  * @author Baltan
  * @date 2019-12-06 22:34
@@ -19,14 +19,24 @@ public class SongController {
     private SongService songService;
 
     /**
-     * 根据关键字搜索歌曲
+     * 搜索歌曲
      *
      * @param params
      * @return
-     * @throws Exception
      */
     @PostMapping("/searchSongs")
-    public Map<String, Object> searchSongs(@RequestBody Map<String, Object> params) throws Exception {
+    public Map<String, Object> searchSongs(@RequestBody Map<String, Object> params) {
         return songService.searchSongs(params);
+    }
+
+    /**
+     * 下载歌曲
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/downloadSong")
+    public Map<String, Object> downloadSong(@RequestBody Map<String, Object> params) {
+        return songService.downloadSong(params);
     }
 }
