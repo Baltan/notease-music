@@ -1,7 +1,7 @@
 package com.baltan.notease.music.domain;
 
 /**
- * Description:
+ * Description: 专辑实体类
  *
  * @author Baltan
  * @date 2019-12-10 12:02
