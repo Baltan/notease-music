@@ -57,7 +57,7 @@ public class NoteaseMusicApplicationTests {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("params", paramArray[0]);
         paramsMap.put("encSecKey", paramArray[1]);
-        Map<String, Object> response = HttpUtil.post(paramsMap, neteaseConfig.getSearchSongsRequestUrl());
+        String response = HttpUtil.post(paramsMap, neteaseConfig.getSearchSongsRequestUrl());
         System.out.println(response);
     }
 }
