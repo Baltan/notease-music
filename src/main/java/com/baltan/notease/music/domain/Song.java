@@ -1,5 +1,7 @@
 package com.baltan.notease.music.domain;
 
+import java.util.List;
+
 /**
  * Description: MP3信息实体类
  *
@@ -10,7 +12,7 @@ public class Song {
     /**
      * 歌曲id
      */
-    private Integer id;
+    private Long id;
     /**
      * 歌名
      */
@@ -18,38 +20,32 @@ public class Song {
     /**
      * 歌手
      */
-    private String artist;
+    private List<Artist> artist;
     /**
      * 专辑
      */
-    private String album;
+    private Album album;
     /**
      * 时长
      */
-    private int duration;
-    /**
-     * 专辑封面
-     */
-    private String albumCoverUrl;
+    private Long duration;
 
     public Song() {
     }
 
-    public Song(Integer id, String songName, String artist, String album, int duration,
-                String albumCoverUrl) {
+    public Song(Long id, String songName, List<Artist> artist, Album album, Long duration) {
         this.id = id;
         this.songName = songName;
         this.artist = artist;
         this.album = album;
         this.duration = duration;
-        this.albumCoverUrl = albumCoverUrl;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,36 +57,28 @@ public class Song {
         this.songName = songName;
     }
 
-    public String getArtist() {
+    public List<Artist> getArtist() {
         return artist;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(List<Artist> artist) {
         this.artist = artist;
     }
 
-    public String getAlbum() {
+    public Album getAlbum() {
         return album;
     }
 
-    public void setAlbum(String album) {
+    public void setAlbum(Album album) {
         this.album = album;
     }
 
-    public int getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
-    }
-
-    public String getAlbumCoverUrl() {
-        return albumCoverUrl;
-    }
-
-    public void setAlbumCoverUrl(String albumCoverUrl) {
-        this.albumCoverUrl = albumCoverUrl;
     }
 
     @Override
@@ -98,10 +86,9 @@ public class Song {
         return "Song{" +
                 "id=" + id +
                 ", songName='" + songName + '\'' +
-                ", artist='" + artist + '\'' +
-                ", album='" + album + '\'' +
+                ", artist=" + artist +
+                ", album=" + album +
                 ", duration=" + duration +
-                ", albumCoverUrl='" + albumCoverUrl + '\'' +
                 '}';
     }
 }
