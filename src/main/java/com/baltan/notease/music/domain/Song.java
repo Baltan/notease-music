@@ -3,7 +3,7 @@ package com.baltan.notease.music.domain;
 import java.util.List;
 
 /**
- * Description: MP3信息实体类
+ * Description: 歌曲实体类
  *
  * @author Baltan
  * @date 2019-11-27 22:51
@@ -18,9 +18,13 @@ public class Song {
      */
     private String songName;
     /**
+     * 歌曲别名
+     */
+    private List<String> alia;
+    /**
      * 歌手
      */
-    private List<Artist> artist;
+    private List<Artist> artists;
     /**
      * 专辑
      */
@@ -29,16 +33,23 @@ public class Song {
      * 时长
      */
     private Long duration;
+    /**
+     * 费用
+     */
+    private Integer fee;
 
     public Song() {
     }
 
-    public Song(Long id, String songName, List<Artist> artist, Album album, Long duration) {
+    public Song(Long id, String songName, List<String> alia,
+                List<Artist> artists, Album album, Long duration, Integer fee) {
         this.id = id;
         this.songName = songName;
-        this.artist = artist;
+        this.alia = alia;
+        this.artists = artists;
         this.album = album;
         this.duration = duration;
+        this.fee = fee;
     }
 
     public Long getId() {
@@ -57,12 +68,20 @@ public class Song {
         this.songName = songName;
     }
 
-    public List<Artist> getArtist() {
-        return artist;
+    public List<String> getAlia() {
+        return alia;
     }
 
-    public void setArtist(List<Artist> artist) {
-        this.artist = artist;
+    public void setAlia(List<String> alia) {
+        this.alia = alia;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
     }
 
     public Album getAlbum() {
@@ -81,14 +100,24 @@ public class Song {
         this.duration = duration;
     }
 
+    public Integer getFee() {
+        return fee;
+    }
+
+    public void setFee(Integer fee) {
+        this.fee = fee;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
                 "id=" + id +
                 ", songName='" + songName + '\'' +
-                ", artist=" + artist +
+                ", alia=" + alia +
+                ", artists=" + artists +
                 ", album=" + album +
                 ", duration=" + duration +
+                ", fee=" + fee +
                 '}';
     }
 }
