@@ -24,7 +24,12 @@ public class SongServiceImpl implements SongService {
     private NeteaseConfig neteaseConfig;
 
     @Override
-    public Map<String, Object> searchSongs(String keyWord) throws Exception {
+    public Map<String, Object> searchSongs(Map<String, Object> params) throws Exception {
+        String keyWord = (String) params.get("keyWord");
+        int pageNumber = (int) params.get("pageNumber");
+        final int COUNT_PER_PAGE = 20;
+        String offset = String.valueOf((pageNumber - 1) * COUNT_PER_PAGE);
+
         Map<String, String> requestParams = new HashMap<>(9);
         requestParams.put("hlpretag", "<span class=\\\"s-fc7\\\">");
         requestParams.put("hlposttag", "</span>");
@@ -37,12 +42,12 @@ public class SongServiceImpl implements SongService {
         /**
          * 页码偏移量
          */
-        requestParams.put("offset", "0");
+        requestParams.put("offset", offset);
         requestParams.put("total", "true");
         /**
          * 返回数量
          */
-        requestParams.put("limit", "70");
+        requestParams.put("limit", String.valueOf(COUNT_PER_PAGE));
         requestParams.put("csrf_token", "");
         String cipherText = JSON.toJSONString(requestParams);
         String[] paramArray = EncryptUtil.getParam(cipherText);

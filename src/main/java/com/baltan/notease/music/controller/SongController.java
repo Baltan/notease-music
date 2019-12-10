@@ -2,10 +2,7 @@ package com.baltan.notease.music.controller;
 
 import com.baltan.notease.music.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,12 +21,12 @@ public class SongController {
     /**
      * 根据关键字搜索歌曲
      *
-     * @param keyWord
+     * @param params
      * @return
      * @throws Exception
      */
-    @GetMapping("/get/{keyWord}")
-    public Map<String, Object> searchSongs(@PathVariable String keyWord) throws Exception {
-        return songService.searchSongs(keyWord);
+    @PostMapping("/searchSongs")
+    public Map<String, Object> searchSongs(@RequestBody Map<String, Object> params) throws Exception {
+        return songService.searchSongs(params);
     }
 }

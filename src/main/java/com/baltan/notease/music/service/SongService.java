@@ -12,9 +12,9 @@ public interface SongService {
     /**
      * 根据关键字搜索歌曲
      *
-     * @param keyWord
+     * @param params
      * @return
      * @throws Exception
      */
-    Map<String, Object> searchSongs(String keyWord) throws Exception;
+    Map<String, Object> searchSongs(Map<String, Object> params) throws Exception;
 }
