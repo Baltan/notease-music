@@ -1,7 +1,7 @@
 package com.baltan.notease.music.constant;
 
 /**
- * Description:
+ * Description: 查询类型枚举类
  *
  * @author Baltan
  * @date 2019-12-09 21:49
