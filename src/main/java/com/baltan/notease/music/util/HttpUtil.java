@@ -1,6 +1,8 @@
 package com.baltan.notease.music.util;
 
 import com.baltan.notease.music.config.HttpConfig;
+import com.baltan.notease.music.constant.CustomizedException;
+import com.baltan.notease.music.exception.HttpRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,14 +12,14 @@ import java.net.*;
 import java.util.Map;
 
 /**
- * Description:
+ * Description: http请求工具类
  *
  * @author Baltan
  * @date 2019-12-06 16:47
  */
 @Component
 public class HttpUtil {
-    private static volatile HttpConfig httpConfig;
+    private static HttpConfig httpConfig;
 
     /**
      * 无法实例化工具类
@@ -29,9 +31,13 @@ public class HttpUtil {
      * 表单提交POST请求
      *
      * @param paramsMap
+     * @param url
+     * @return
      * @throws IOException
+     * @throws HttpRequestException
      */
-    public static String post(Map<String, String> paramsMap, String url) {
+    public static String post(Map<String, String> paramsMap, String url)
+            throws IOException, HttpRequestException {
         StringBuilder result = new StringBuilder();
         OutputStreamWriter osw = null;
         BufferedReader br = null;
@@ -58,30 +64,23 @@ public class HttpUtil {
             }
         } catch (ProtocolException e) {
             e.printStackTrace();
+            throw e;
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            throw e;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            throw e;
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new HttpRequestException(CustomizedException.HTTP_REQUEST_EXCEPTION.getCODE(),
+                    CustomizedException.HTTP_REQUEST_EXCEPTION.getMESSAGE());
         } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (osw != null) {
-                try {
-                    osw.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            IOUtil.close(br);
+            IOUtil.close(osw);
         }
         return result.toString();
     }
@@ -92,19 +91,29 @@ public class HttpUtil {
      *
      * @param paramsMap
      * @return
-     * @throws Exception
+     * @throws UnsupportedEncodingException
+     * @throws HttpRequestException
      */
     private static String createParameter(Map<String, String> paramsMap)
-            throws Exception {
-        StringBuilder builder = new StringBuilder();
+            throws UnsupportedEncodingException, HttpRequestException {
+        try {
+            StringBuilder builder = new StringBuilder();
 
-        for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
-            builder.append(entry.getKey());
-            builder.append("=");
-            builder.append(URLEncoder.encode(entry.getValue(), httpConfig.getCharset()));
-            builder.append("&");
+            for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
+                builder.append(entry.getKey());
+                builder.append("=");
+                builder.append(URLEncoder.encode(entry.getValue(), httpConfig.getCharset()));
+                builder.append("&");
+            }
+            return builder.substring(0, builder.length() - 1);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new HttpRequestException(CustomizedException.HTTP_REQUEST_EXCEPTION.getCODE(),
+                    CustomizedException.HTTP_REQUEST_EXCEPTION.getMESSAGE());
         }
-        return builder.substring(0, builder.length() - 1);
     }
 
     @Autowired
