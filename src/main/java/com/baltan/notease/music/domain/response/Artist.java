@@ -1,5 +1,7 @@
 package com.baltan.notease.music.domain.response;
 
+import java.util.List;
+
 /**
  * Description:
  *
@@ -9,6 +11,7 @@ package com.baltan.notease.music.domain.response;
 public class Artist {
     private Long id;
     private String name;
+    private List<String> alias;
 
     public Long getId() {
         return id;
@@ -26,11 +29,20 @@ public class Artist {
         this.name = name;
     }
 
+    public List<String> getAlias() {
+        return alias;
+    }
+
+    public void setAlias(List<String> alias) {
+        this.alias = alias;
+    }
+
     @Override
     public String toString() {
         return "Artist{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", alias=" + alias +
                 '}';
     }
 }
