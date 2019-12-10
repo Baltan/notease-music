@@ -31,7 +31,7 @@ public class HttpUtil {
      * @param paramsMap
      * @throws IOException
      */
-    public static Map<String, Object> post(Map<String, String> paramsMap, String url) {
+    public static String post(Map<String, String> paramsMap, String url) {
         StringBuilder result = new StringBuilder();
         OutputStreamWriter osw = null;
         BufferedReader br = null;
@@ -83,7 +83,7 @@ public class HttpUtil {
                 }
             }
         }
-        return DataUtil.string2Map(result.toString());
+        return result.toString();
     }
 
     /**
