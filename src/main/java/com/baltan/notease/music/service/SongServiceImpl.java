@@ -5,6 +5,7 @@ import com.baltan.notease.music.config.NeteaseConfig;
 import com.baltan.notease.music.constant.SearchType;
 import com.baltan.notease.music.util.EncryptUtil;
 import com.baltan.notease.music.util.HttpUtil;
+import com.baltan.notease.music.util.ResponseParseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class SongServiceImpl implements SongService {
         /**
          * 1：单曲；10：专辑；100：歌手；1000：歌单；1002：用户
          */
-        requestParams.put("type", SearchType.SONG.name());
+        requestParams.put("type", SearchType.SONG.getVALUE());
         /**
          * 页码偏移量
          */
@@ -49,7 +50,8 @@ public class SongServiceImpl implements SongService {
         Map<String, String> paramsMap = new HashMap<>(2);
         paramsMap.put("params", paramArray[0]);
         paramsMap.put("encSecKey", paramArray[1]);
-        Map<String, Object> response = HttpUtil.post(paramsMap, neteaseConfig.getSearchSongsRequestUrl());
+        String json = HttpUtil.post(paramsMap, neteaseConfig.getSearchSongsRequestUrl());
+        Map<String, Object> response = ResponseParseUtil.searchSongsParse(json);
         return response;
     }
 }
