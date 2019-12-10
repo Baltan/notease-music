@@ -16,6 +16,8 @@ public class SongInfo {
     private MediumQualitySong m;
     private HighQualitySong h;
     private LosslessQualitySong l;
+    private Integer fee;
+    private List<String> alia;
 
     public Long getId() {
         return id;
@@ -73,6 +75,22 @@ public class SongInfo {
         this.l = l;
     }
 
+    public Integer getFee() {
+        return fee;
+    }
+
+    public void setFee(Integer fee) {
+        this.fee = fee;
+    }
+
+    public List<String> getAlia() {
+        return alia;
+    }
+
+    public void setAlia(List<String> alia) {
+        this.alia = alia;
+    }
+
     @Override
     public String toString() {
         return "SongInfo{" +
@@ -83,6 +101,8 @@ public class SongInfo {
                 ", m=" + m +
                 ", h=" + h +
                 ", l=" + l +
+                ", fee=" + fee +
+                ", alia=" + alia +
                 '}';
     }
 }
