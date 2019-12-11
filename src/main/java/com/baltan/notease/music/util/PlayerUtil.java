@@ -87,6 +87,7 @@ public class PlayerUtil {
      * @throws InvalidAudioFrameException
      * @throws MusicPlayException
      */
+    @Deprecated
     public static String getDuration(File file)
             throws IOException, CannotReadException, ReadOnlyFileException, TagException,
             InvalidAudioFrameException, MusicPlayException, DataFormatException {
