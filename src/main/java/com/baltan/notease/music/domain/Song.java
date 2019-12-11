@@ -37,12 +37,16 @@ public class Song {
      * 费用
      */
     private Integer fee;
+    /**
+     * 是否可播放
+     */
+    private Boolean playable;
 
     public Song() {
     }
 
     public Song(Long id, String songName, List<String> alia,
-                List<Artist> artists, Album album, Long duration, Integer fee) {
+                List<Artist> artists, Album album, Long duration, Integer fee, Boolean playable) {
         this.id = id;
         this.songName = songName;
         this.alia = alia;
@@ -50,6 +54,7 @@ public class Song {
         this.album = album;
         this.duration = duration;
         this.fee = fee;
+        this.playable = playable;
     }
 
     public Long getId() {
@@ -108,6 +113,14 @@ public class Song {
         this.fee = fee;
     }
 
+    public Boolean getPlayable() {
+        return playable;
+    }
+
+    public void setPlayable(Boolean playable) {
+        this.playable = playable;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -118,6 +131,7 @@ public class Song {
                 ", album=" + album +
                 ", duration=" + duration +
                 ", fee=" + fee +
+                ", playable=" + playable +
                 '}';
     }
 }

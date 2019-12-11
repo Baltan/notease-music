@@ -7,6 +7,7 @@ import com.baltan.notease.music.constant.Response;
 import com.baltan.notease.music.domain.Album;
 import com.baltan.notease.music.domain.Artist;
 import com.baltan.notease.music.domain.Song;
+import com.baltan.notease.music.domain.response.Privilege;
 import com.baltan.notease.music.domain.response.SearchSongsResponse;
 import com.baltan.notease.music.domain.response.SearchSongsResult;
 import com.baltan.notease.music.domain.response.SongInfo;
@@ -47,7 +48,8 @@ public class ResponseParseUtil {
             if (code == Response.NETEASE_QUERY_SUCCESSFUL.getCODE()) {
                 Integer songCount = result.getSongCount();
                 List<SongInfo> songs = result.getSongs();
-                List<Song> songList = new LinkedList<>();
+                List<Song> playableSongList = new LinkedList<>();
+                List<Song> notPlayableSongList = new LinkedList<>();
 
                 for (SongInfo songInfo : songs) {
                     Long id = songInfo.getId();
@@ -61,10 +63,20 @@ public class ResponseParseUtil {
                             songInfo.getAl().getPicUrl());
                     Long duration = null;
                     Integer fee = songInfo.getFee();
-                    songList.add(new Song(id, songName, alia, artists, album, duration, fee));
+                    Privilege privilege = songInfo.getPrivilege();
+                    Boolean playable = isPlayable(privilege);
+
+                    if (playable) {
+                        playableSongList
+                                .add(new Song(id, songName, alia, artists, album, duration, fee, true));
+                    } else {
+                        notPlayableSongList
+                                .add(new Song(id, songName, alia, artists, album, duration, fee, false));
+                    }
                 }
                 response.put("songCount", songCount);
-                response.put("songList", songList);
+                response.put("playableSongList", playableSongList);
+                response.put("notPlayableSongList", notPlayableSongList);
             } else {
                 throw new QueryFailureException(CustomizedException.QUERY_FAILURE_EXCEPTION.getCODE(),
                         CustomizedException.QUERY_FAILURE_EXCEPTION.getMESSAGE());
@@ -78,5 +90,28 @@ public class ResponseParseUtil {
                     CustomizedException.RESPONSE_PARSE_EXCEPTION.getMESSAGE());
         }
         return response;
+    }
+
+    /**
+     * 判断歌曲能否播放
+     * 参考：<a href="https://blog.csdn.net/qq_36779888/article/details/90738012"></a>
+     *
+     * @param privilege
+     * @return
+     */
+    private static boolean isPlayable(Privilege privilege) {
+        int fee = privilege.getFee();
+        int payed = privilege.getPayed();
+        int pl = privilege.getPl();
+        int dl = privilege.getDl();
+
+        if ((fee == 0 || payed != 0) && pl > 0 && dl == 0) {
+            return false;
+        }
+
+        if (pl == 0 && dl == 0) {
+            return false;
+        }
+        return true;
     }
 }

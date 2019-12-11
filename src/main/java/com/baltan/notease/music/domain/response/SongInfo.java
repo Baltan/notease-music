@@ -18,6 +18,7 @@ public class SongInfo {
     private LosslessQualitySong l;
     private Integer fee;
     private List<String> alia;
+    private Privilege privilege;
 
     public Long getId() {
         return id;
@@ -91,6 +92,14 @@ public class SongInfo {
         this.alia = alia;
     }
 
+    public Privilege getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(Privilege privilege) {
+        this.privilege = privilege;
+    }
+
     @Override
     public String toString() {
         return "SongInfo{" +
@@ -103,6 +112,7 @@ public class SongInfo {
                 ", l=" + l +
                 ", fee=" + fee +
                 ", alia=" + alia +
+                ", privilege=" + privilege +
                 '}';
     }
 }
