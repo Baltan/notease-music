@@ -39,7 +39,7 @@ public class FileUtil {
      * @throws IOException
      * @throws DownloadFailureException
      */
-    public static void downloadSong(int id, List<String> artistNames, String songName)
+    public static void downloadSong(long id, List<String> artistNames, String songName)
             throws IOException, DownloadFailureException {
         BufferedInputStream bis = null;
         FileOutputStream fos = null;
