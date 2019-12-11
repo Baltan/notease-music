@@ -19,6 +19,7 @@ public class SongInfo {
     private Integer fee;
     private List<String> alia;
     private Privilege privilege;
+    private Long dt;
 
     public Long getId() {
         return id;
@@ -100,6 +101,14 @@ public class SongInfo {
         this.privilege = privilege;
     }
 
+    public Long getDt() {
+        return dt;
+    }
+
+    public void setDt(Long dt) {
+        this.dt = dt;
+    }
+
     @Override
     public String toString() {
         return "SongInfo{" +
@@ -113,6 +122,7 @@ public class SongInfo {
                 ", fee=" + fee +
                 ", alia=" + alia +
                 ", privilege=" + privilege +
+                ", dt=" + dt +
                 '}';
     }
 }

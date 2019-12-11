@@ -32,7 +32,7 @@ public class Song {
     /**
      * 时长
      */
-    private Long duration;
+    private String duration;
     /**
      * 费用
      */
@@ -46,7 +46,7 @@ public class Song {
     }
 
     public Song(Long id, String songName, List<String> alia,
-                List<Artist> artists, Album album, Long duration, Integer fee, Boolean playable) {
+                List<Artist> artists, Album album, String duration, Integer fee, Boolean playable) {
         this.id = id;
         this.songName = songName;
         this.alia = alia;
@@ -97,11 +97,11 @@ public class Song {
         this.album = album;
     }
 
-    public Long getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Long duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

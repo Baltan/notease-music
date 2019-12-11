@@ -61,7 +61,7 @@ public class ResponseParseUtil {
                                     .collect(Collectors.toList());
                     Album album = new Album(songInfo.getAl().getId(), songInfo.getAl().getName(),
                             songInfo.getAl().getPicUrl());
-                    Long duration = null;
+                    String duration = DataUtil.second2MinuteAndSecond((int) (songInfo.getDt() / 1000));
                     Integer fee = songInfo.getFee();
                     Privilege privilege = songInfo.getPrivilege();
                     Boolean playable = isPlayable(privilege);
