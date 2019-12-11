@@ -22,25 +22,25 @@ public class PlayerController {
     private PlayerService playerService;
 
     /**
-     * 开始播放歌曲
+     * 开始播放本地歌曲
      *
      * @param params
      * @return
      */
-    @PostMapping("/startPlay")
-    public Map<String, Object> startPlay(@RequestBody Map<String, Object> params) {
-        return playerService.startPlay(params);
+    @PostMapping("/startLocalPlay")
+    public Map<String, Object> startLocalPlay(@RequestBody Map<String, Object> params) {
+        return playerService.startLocalPlay(params);
     }
 
     /**
-     * 结束播放歌曲
+     * 结束播放本地歌曲
      *
      * @param params
      * @return
      */
-    @PostMapping("/stopPlay")
-    public Map<String, Object> stopPlay(@RequestBody Map<String, Object> params) {
-        return playerService.stopPlay(params);
+    @PostMapping("/stopLocalPlay")
+    public Map<String, Object> stopLocalPlay(@RequestBody Map<String, Object> params) {
+        return playerService.stopLocalPlay(params);
     }
 
     /**

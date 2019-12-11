@@ -10,20 +10,20 @@ import java.util.Map;
  */
 public interface PlayerService {
     /**
-     * 开始播放歌曲
+     * 开始播放本地歌曲
      *
      * @param params
      * @return
      */
-    Map<String, Object> startPlay(Map<String, Object> params);
+    Map<String, Object> startLocalPlay(Map<String, Object> params);
 
     /**
-     * 结束播放歌曲
+     * 结束播放本地歌曲
      *
      * @param params
      * @return
      */
-    Map<String, Object> stopPlay(Map<String, Object> params);
+    Map<String, Object> stopLocalPlay(Map<String, Object> params);
 
     /**
      * 开始播放在线歌曲

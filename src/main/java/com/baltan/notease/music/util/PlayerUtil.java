@@ -33,14 +33,14 @@ public class PlayerUtil {
     private static MediaPlayer mediaPlayer;
 
     /**
-     * 开始播放
+     * 开始本地播放
      *
      * @param filePath
      * @throws IOException
      * @throws JavaLayerException
      * @throws MusicPlayException
      */
-    public static void play(String filePath)
+    public static void startLocalPlay(String filePath)
             throws IOException, JavaLayerException, MusicPlayException {
         BufferedInputStream bis = null;
 
@@ -59,17 +59,17 @@ public class PlayerUtil {
             throw new MusicPlayException(CustomizedException.MUSIC_PLAY_EXCEPTION.getCODE(),
                     CustomizedException.MUSIC_PLAY_EXCEPTION.getMESSAGE());
         } finally {
-            stop();
+            stopLocalPlay();
             IOUtil.close(bis);
         }
     }
 
     /**
-     * 停止播放
+     * 停止本地播放
      *
      * @throws MusicPlayException
      */
-    public static void stop() throws MusicPlayException {
+    public static void stopLocalPlay() throws MusicPlayException {
         try {
             player.close();
         } catch (Exception e) {

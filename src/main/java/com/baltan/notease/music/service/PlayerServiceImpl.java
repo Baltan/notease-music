@@ -24,13 +24,13 @@ public class PlayerServiceImpl implements PlayerService {
     private DownloadConfig downloadConfig;
 
     /**
-     * 开始播放歌曲
+     * 开始播放本地歌曲
      *
      * @param params
      * @return
      */
     @Override
-    public Map<String, Object> startPlay(Map<String, Object> params) {
+    public Map<String, Object> startLocalPlay(Map<String, Object> params) {
         Map<String, Object> response = new HashMap<>();
         int responseCode = Response.SUCCESSFUL.getCODE();
         String responseMessage = Response.SUCCESSFUL.getMESSAGE();
@@ -43,7 +43,7 @@ public class PlayerServiceImpl implements PlayerService {
             File file = new File(filePath);
 
             if (file.exists()) {
-                PlayerUtil.play(filePath);
+                PlayerUtil.startLocalPlay(filePath);
             } else {
 
             }
@@ -63,19 +63,19 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     /**
-     * 结束播放歌曲
+     * 结束播放本地歌曲
      *
      * @param params
      * @return
      */
     @Override
-    public Map<String, Object> stopPlay(Map<String, Object> params) {
+    public Map<String, Object> stopLocalPlay(Map<String, Object> params) {
         Map<String, Object> response = new HashMap<>();
         int responseCode = Response.SUCCESSFUL.getCODE();
         String responseMessage = Response.SUCCESSFUL.getMESSAGE();
 
         try {
-            PlayerUtil.stop();
+            PlayerUtil.stopLocalPlay();
         } catch (MusicPlayException e) {
             responseCode = e.getCode();
             responseMessage = e.getMessage();
