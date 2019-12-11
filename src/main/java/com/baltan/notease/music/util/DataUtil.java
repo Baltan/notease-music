@@ -112,4 +112,30 @@ public class DataUtil {
                     CustomizedException.DATA_FORMAT_EXCEPTION.getMESSAGE());
         }
     }
+
+    /**
+     * 秒数时长转为分秒时长
+     *
+     * @param second
+     * @return
+     * @throws DataFormatException
+     */
+    public static String second2MinuteAndSecond(int second) throws DataFormatException {
+        try {
+            StringBuilder builder = new StringBuilder();
+            int minutes = second / 60;
+            int seconds = second % 60;
+
+            if (minutes == 0) {
+                builder.append(second).append("秒");
+            } else {
+                builder.append(minutes).append("分").append(seconds).append("秒");
+            }
+            return builder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataFormatException(CustomizedException.DATA_FORMAT_EXCEPTION.getCODE(),
+                    CustomizedException.DATA_FORMAT_EXCEPTION.getMESSAGE());
+        }
+    }
 }
