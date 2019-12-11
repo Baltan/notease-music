@@ -13,7 +13,8 @@ public enum CustomizedException {
     DOWNLOAD_FAILURE_EXCEPTION(100002, "下载失败"),
     ENCRYPT_EXCEPTION(100003, "报文加密错误"),
     HTTP_REQUEST_EXCEPTION(100004, "http请求错误"),
-    DATA_FORMAT_EXCEPTION(100005, "数据格式转换错误");
+    DATA_FORMAT_EXCEPTION(100005, "数据格式转换错误"),
+    MUSIC_PLAY_EXCEPTION(100006, "音乐播放失败");
 
     private final int CODE;
     private final String MESSAGE;
