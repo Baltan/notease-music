@@ -90,4 +90,93 @@ public class PlayerServiceImpl implements PlayerService {
         }
         return response;
     }
+
+    /**
+     * 开始播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Map<String, Object> startOnlinePlay(Map<String, Object> params) {
+        Map<String, Object> response = new HashMap<>();
+        int responseCode = Response.SUCCESSFUL.getCODE();
+        String responseMessage = Response.SUCCESSFUL.getMESSAGE();
+
+        try {
+            String id = (String) params.get("id");
+            String url = downloadConfig.getSongUrl() + id + downloadConfig.getSongSuffix();
+            PlayerUtil.startOnlinePlay(url);
+        } catch (MusicPlayException e) {
+            responseCode = e.getCode();
+            responseMessage = e.getMessage();
+            e.printStackTrace();
+        } catch (Exception e) {
+            responseCode = CustomizedException.UNKNOWN_EXCEPTION.getCODE();
+            responseMessage = CustomizedException.UNKNOWN_EXCEPTION.getMESSAGE();
+            e.printStackTrace();
+        } finally {
+            response.put("responseCode", responseCode);
+            response.put("responseMessage", responseMessage);
+        }
+        return response;
+    }
+
+    /**
+     * 结束播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Map<String, Object> stopOnlinePlay(Map<String, Object> params) {
+        Map<String, Object> response = new HashMap<>();
+        int responseCode = Response.SUCCESSFUL.getCODE();
+        String responseMessage = Response.SUCCESSFUL.getMESSAGE();
+
+        try {
+            PlayerUtil.stopOnlinePlay();
+        } catch (MusicPlayException e) {
+            responseCode = e.getCode();
+            responseMessage = e.getMessage();
+            e.printStackTrace();
+        } catch (Exception e) {
+            responseCode = CustomizedException.UNKNOWN_EXCEPTION.getCODE();
+            responseMessage = CustomizedException.UNKNOWN_EXCEPTION.getMESSAGE();
+            e.printStackTrace();
+        } finally {
+            response.put("responseCode", responseCode);
+            response.put("responseMessage", responseMessage);
+        }
+        return response;
+    }
+
+    /**
+     * 暂停播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Map<String, Object> pauseOnlinePlay(Map<String, Object> params) {
+        Map<String, Object> response = new HashMap<>();
+        int responseCode = Response.SUCCESSFUL.getCODE();
+        String responseMessage = Response.SUCCESSFUL.getMESSAGE();
+
+        try {
+            PlayerUtil.pauseOnlinePlay();
+        } catch (MusicPlayException e) {
+            responseCode = e.getCode();
+            responseMessage = e.getMessage();
+            e.printStackTrace();
+        } catch (Exception e) {
+            responseCode = CustomizedException.UNKNOWN_EXCEPTION.getCODE();
+            responseMessage = CustomizedException.UNKNOWN_EXCEPTION.getMESSAGE();
+            e.printStackTrace();
+        } finally {
+            response.put("responseCode", responseCode);
+            response.put("responseMessage", responseMessage);
+        }
+        return response;
+    }
 }

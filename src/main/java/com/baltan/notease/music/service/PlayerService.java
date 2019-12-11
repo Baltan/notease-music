@@ -24,4 +24,28 @@ public interface PlayerService {
      * @return
      */
     Map<String, Object> stopPlay(Map<String, Object> params);
+
+    /**
+     * 开始播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    Map<String, Object> startOnlinePlay(Map<String, Object> params);
+
+    /**
+     * 结束播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    Map<String, Object> stopOnlinePlay(Map<String, Object> params);
+
+    /**
+     * 暂停播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    Map<String, Object> pauseOnlinePlay(Map<String, Object> params);
 }

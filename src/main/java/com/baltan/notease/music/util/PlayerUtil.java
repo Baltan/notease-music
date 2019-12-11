@@ -3,6 +3,8 @@ package com.baltan.notease.music.util;
 import com.baltan.notease.music.constant.CustomizedException;
 import com.baltan.notease.music.exception.DataFormatException;
 import com.baltan.notease.music.exception.MusicPlayException;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -19,6 +21,7 @@ import java.io.*;
 /**
  * Description: 音乐播放工具类
  * 参考：<a href="https://blog.csdn.net/qq_34814092/article/details/80889813"></a>
+ * <a href="https://blog.csdn.net/yourlittlelemon/article/details/79250674"></a>
  *
  * @author Baltan
  * @date 2019-12-11 13:57
@@ -26,6 +29,8 @@ import java.io.*;
 @Component
 public class PlayerUtil {
     private static Player player;
+    private static Media media;
+    private static MediaPlayer mediaPlayer;
 
     /**
      * 开始播放
@@ -67,6 +72,56 @@ public class PlayerUtil {
     public static void stop() throws MusicPlayException {
         try {
             player.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MusicPlayException(CustomizedException.MUSIC_PLAY_EXCEPTION.getCODE(),
+                    CustomizedException.MUSIC_PLAY_EXCEPTION.getMESSAGE());
+        }
+    }
+
+    /**
+     * 开始在线播放
+     *
+     * @param url
+     * @throws MusicPlayException
+     */
+    public static void startOnlinePlay(String url) throws MusicPlayException {
+        try {
+            media = new Media(url);
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MusicPlayException(CustomizedException.MUSIC_PLAY_EXCEPTION.getCODE(),
+                    CustomizedException.MUSIC_PLAY_EXCEPTION.getMESSAGE());
+        }
+    }
+
+    /**
+     * 停止在线播放
+     *
+     * @throws MusicPlayException
+     */
+    public static void stopOnlinePlay() throws MusicPlayException {
+        try {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MusicPlayException(CustomizedException.MUSIC_PLAY_EXCEPTION.getCODE(),
+                    CustomizedException.MUSIC_PLAY_EXCEPTION.getMESSAGE());
+        }
+    }
+
+    /**
+     * 暂停在线播放
+     *
+     * @throws MusicPlayException
+     */
+    public static void pauseOnlinePlay() throws MusicPlayException {
+        try {
+            mediaPlayer.pause();
         } catch (Exception e) {
             e.printStackTrace();
             throw new MusicPlayException(CustomizedException.MUSIC_PLAY_EXCEPTION.getCODE(),

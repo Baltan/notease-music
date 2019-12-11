@@ -42,4 +42,37 @@ public class PlayerController {
     public Map<String, Object> stopPlay(@RequestBody Map<String, Object> params) {
         return playerService.stopPlay(params);
     }
+
+    /**
+     * 开始播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/startOnlinePlay")
+    public Map<String, Object> startOnlinePlay(@RequestBody Map<String, Object> params) {
+        return playerService.startOnlinePlay(params);
+    }
+
+    /**
+     * 结束播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/stopOnlinePlay")
+    public Map<String, Object> stopOnlinePlay(@RequestBody Map<String, Object> params) {
+        return playerService.stopOnlinePlay(params);
+    }
+
+    /**
+     * 暂停播放在线歌曲
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/pauseOnlinePlay")
+    public Map<String, Object> pauseOnlinePlay(@RequestBody Map<String, Object> params) {
+        return playerService.pauseOnlinePlay(params);
+    }
 }
