@@ -120,7 +120,7 @@ public class FileUtil {
             for (String artistName : artistNames) {
                 builder.append(artistName).append("&");
             }
-            return builder.deleteCharAt(builder.length() - 1).append(" - ").append(songName)
+            return builder.deleteCharAt(builder.length() - 1).append("-").append(songName)
                     .append(downloadConfig.getSongSuffix()).toString();
         } catch (Exception e) {
             e.printStackTrace();
