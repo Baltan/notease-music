@@ -45,7 +45,8 @@ public class PlayerServiceImpl implements PlayerService {
             if (file.exists()) {
                 PlayerUtil.startLocalPlay(filePath);
             } else {
-
+                throw new MusicPlayException(CustomizedException.MUSIC_PLAY_EXCEPTION.getCODE(),
+                        CustomizedException.MUSIC_PLAY_EXCEPTION.getMESSAGE());
             }
         } catch (MusicPlayException e) {
             responseCode = e.getCode();
