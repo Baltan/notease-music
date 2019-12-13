@@ -33,6 +33,12 @@ public class PlayerUtil {
     private static SourceDataLine sourceDataLine;
 
     /**
+     * 无法实例化工具类
+     */
+    private PlayerUtil() {
+    }
+
+    /**
      * 开始本地播放
      *
      * @param filePath
