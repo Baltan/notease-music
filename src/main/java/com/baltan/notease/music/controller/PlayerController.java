@@ -64,15 +64,4 @@ public class PlayerController {
     public Map<String, Object> stopOnlinePlay(@RequestBody Map<String, Object> params) {
         return playerService.stopOnlinePlay(params);
     }
-
-    /**
-     * 暂停播放在线歌曲
-     *
-     * @param params
-     * @return
-     */
-    @PostMapping("/pauseOnlinePlay")
-    public Map<String, Object> pauseOnlinePlay(@RequestBody Map<String, Object> params) {
-        return playerService.pauseOnlinePlay(params);
-    }
 }

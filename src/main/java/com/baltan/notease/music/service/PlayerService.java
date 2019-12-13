@@ -40,12 +40,4 @@ public interface PlayerService {
      * @return
      */
     Map<String, Object> stopOnlinePlay(Map<String, Object> params);
-
-    /**
-     * 暂停播放在线歌曲
-     *
-     * @param params
-     * @return
-     */
-    Map<String, Object> pauseOnlinePlay(Map<String, Object> params);
 }
