@@ -22,7 +22,7 @@ import java.net.URL;
 /**
  * Description: 音乐播放工具类
  * 参考：<a href="https://blog.csdn.net/qq_34814092/article/details/80889813"></a>
- * <a href="https://blog.csdn.net/yourlittlelemon/article/details/79250674"></a>
+ * <a href="https://blog.csdn.net/sikefeng/article/details/81116395"></a>
  *
  * @author Baltan
  * @date 2019-12-11 13:57
