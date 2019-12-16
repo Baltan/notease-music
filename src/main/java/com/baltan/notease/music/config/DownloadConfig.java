@@ -16,6 +16,7 @@ public class DownloadConfig {
     private String songUrl;
     private String songSuffix;
     private String charset;
+    private String lyricSuffix;
 
     public String getDirectoryPath() {
         return directoryPath;
@@ -47,5 +48,24 @@ public class DownloadConfig {
 
     public void setCharset(String charset) {
         this.charset = charset;
+    }
+
+    public String getLyricSuffix() {
+        return lyricSuffix;
+    }
+
+    public void setLyricSuffix(String lyricSuffix) {
+        this.lyricSuffix = lyricSuffix;
+    }
+
+    @Override
+    public String toString() {
+        return "DownloadConfig{" +
+                "directoryPath='" + directoryPath + '\'' +
+                ", songUrl='" + songUrl + '\'' +
+                ", songSuffix='" + songSuffix + '\'' +
+                ", charset='" + charset + '\'' +
+                ", lyricSuffix='" + lyricSuffix + '\'' +
+                '}';
     }
 }
