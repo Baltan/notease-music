@@ -33,6 +33,14 @@ public class ResponseParseUtil {
     private ResponseParseUtil() {
     }
 
+    /**
+     * 查询歌曲返回报文解析
+     *
+     * @param json
+     * @return
+     * @throws ResponseParseException
+     * @throws QueryFailureException
+     */
     public static Map<String, Object> searchSongsParse(String json)
             throws ResponseParseException, QueryFailureException {
         Map<String, Object> response = new HashMap<>();
