@@ -32,4 +32,12 @@ public interface SongService {
      * @return
      */
     Map<String, Object> searchLyric(Map<String, Object> params);
+
+    /**
+     * 下载歌词
+     *
+     * @param params
+     * @return
+     */
+    Map<String, Object> downloadLyric(Map<String, Object> params);
 }

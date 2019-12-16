@@ -133,6 +133,7 @@ public class SongServiceImpl implements SongService {
 
     /**
      * 搜索歌词
+     * 参考：<a href="https://iobaka.com/blog/5.html"></a>
      *
      * @param params
      * @return
@@ -153,6 +154,41 @@ public class SongServiceImpl implements SongService {
             responseMessage = e.getMessage();
             e.printStackTrace();
         } catch (ResponseParseException e) {
+            responseCode = e.getCode();
+            responseMessage = e.getMessage();
+            e.printStackTrace();
+        } catch (Exception e) {
+            responseCode = CustomizedException.UNKNOWN_EXCEPTION.getCODE();
+            responseMessage = CustomizedException.UNKNOWN_EXCEPTION.getMESSAGE();
+            e.printStackTrace();
+        } finally {
+            response.put("responseCode", responseCode);
+            response.put("responseMessage", responseMessage);
+        }
+        return response;
+    }
+
+    /**
+     * 下载歌词
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Map<String, Object> downloadLyric(Map<String, Object> params) {
+        Map<String, Object> response = new HashMap<>();
+        int responseCode = Response.SUCCESSFUL.getCODE();
+        String responseMessage = Response.SUCCESSFUL.getMESSAGE();
+
+        try {
+            String id = (String) params.get("id");
+            List<String> artistNames = (List<String>) params.get("artistNames");
+            String songName = (String) params.get("songName");
+            Map<String, String> paramsMap = new HashMap<>(1);
+            String json = HttpUtil.post(paramsMap, neteaseConfig.getSearchLyricRequestUrl() + id);
+            String lyric = (String) ResponseParseUtil.searchLyricParse(json).get("lyric");
+            FileUtil.downloadLyric(lyric, artistNames, songName);
+        } catch (DownloadFailureException e) {
             responseCode = e.getCode();
             responseMessage = e.getMessage();
             e.printStackTrace();
