@@ -120,7 +120,7 @@ public class ResponseParseUtil {
                 if (StringUtils.isNotEmpty(lyric)) {
                     response.put("lyric", lyric);
                 } else {
-                    response.put("lyric", lyric);
+                    response.put("lyric", "");
                 }
             } else {
                 throw new QueryFailureException(CustomizedException.QUERY_FAILURE_EXCEPTION.getCODE(),
