@@ -99,6 +99,10 @@ public class HttpUtil {
         try {
             StringBuilder builder = new StringBuilder();
 
+            if (paramsMap == null || paramsMap.isEmpty()) {
+                return builder.toString();
+            }
+
             for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
                 builder.append(entry.getKey());
                 builder.append("=");
