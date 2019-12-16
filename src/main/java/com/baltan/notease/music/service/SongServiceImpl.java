@@ -130,4 +130,40 @@ public class SongServiceImpl implements SongService {
         }
         return response;
     }
+
+    /**
+     * 搜索歌词
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Map<String, Object> searchLyric(Map<String, Object> params) {
+        Map<String, Object> response = new HashMap<>();
+        int responseCode = Response.SUCCESSFUL.getCODE();
+        String responseMessage = Response.SUCCESSFUL.getMESSAGE();
+
+        try {
+            String id = (String) params.get("id");
+            Map<String, String> paramsMap = new HashMap<>(1);
+            String json = HttpUtil.post(paramsMap, neteaseConfig.getSearchLyricRequestUrl() + id);
+            response = ResponseParseUtil.searchLyricParse(json);
+        } catch (QueryFailureException e) {
+            responseCode = e.getCode();
+            responseMessage = e.getMessage();
+            e.printStackTrace();
+        } catch (ResponseParseException e) {
+            responseCode = e.getCode();
+            responseMessage = e.getMessage();
+            e.printStackTrace();
+        } catch (Exception e) {
+            responseCode = CustomizedException.UNKNOWN_EXCEPTION.getCODE();
+            responseMessage = CustomizedException.UNKNOWN_EXCEPTION.getMESSAGE();
+            e.printStackTrace();
+        } finally {
+            response.put("responseCode", responseCode);
+            response.put("responseMessage", responseMessage);
+        }
+        return response;
+    }
 }

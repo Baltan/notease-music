@@ -39,4 +39,15 @@ public class SongController {
     public Map<String, Object> downloadSong(@RequestBody Map<String, Object> params) {
         return songService.downloadSong(params);
     }
+
+    /**
+     * 搜索歌词
+     *
+     * @param params
+     * @return
+     */
+    @PostMapping("/searchLyric")
+    public Map<String, Object> searchLyric(@RequestBody Map<String, Object> params) {
+        return songService.searchLyric(params);
+    }
 }

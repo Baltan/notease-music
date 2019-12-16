@@ -24,4 +24,12 @@ public interface SongService {
      * @return
      */
     Map<String, Object> downloadSong(Map<String, Object> params);
+
+    /**
+     * 搜索歌词
+     *
+     * @param params
+     * @return
+     */
+    Map<String, Object> searchLyric(Map<String, Object> params);
 }
