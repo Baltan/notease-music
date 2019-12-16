@@ -7,12 +7,10 @@ import com.baltan.notease.music.constant.Response;
 import com.baltan.notease.music.domain.Album;
 import com.baltan.notease.music.domain.Artist;
 import com.baltan.notease.music.domain.Song;
-import com.baltan.notease.music.domain.response.Privilege;
-import com.baltan.notease.music.domain.response.SearchSongsResponse;
-import com.baltan.notease.music.domain.response.SearchSongsResult;
-import com.baltan.notease.music.domain.response.SongInfo;
+import com.baltan.notease.music.domain.response.*;
 import com.baltan.notease.music.exception.QueryFailureException;
 import com.baltan.notease.music.exception.ResponseParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -77,6 +75,45 @@ public class ResponseParseUtil {
                 response.put("songCount", songCount);
                 response.put("playableSongList", playableSongList);
                 response.put("notPlayableSongList", notPlayableSongList);
+            } else {
+                throw new QueryFailureException(CustomizedException.QUERY_FAILURE_EXCEPTION.getCODE(),
+                        CustomizedException.QUERY_FAILURE_EXCEPTION.getMESSAGE());
+            }
+        } catch (QueryFailureException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseParseException(CustomizedException.RESPONSE_PARSE_EXCEPTION.getCODE(),
+                    CustomizedException.RESPONSE_PARSE_EXCEPTION.getMESSAGE());
+        }
+        return response;
+    }
+
+    /**
+     * 查询歌词返回报文解析
+     *
+     * @param json
+     * @return
+     * @throws QueryFailureException
+     * @throws ResponseParseException
+     */
+    public static Map<String, Object> searchLyricParse(String json)
+            throws QueryFailureException, ResponseParseException {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            SearchLyricResponse searchSongsResponse = JSON.parseObject(json, SearchLyricResponse.class,
+                    Feature.IgnoreNotMatch);
+            Integer code = searchSongsResponse.getCode();
+            String lyric = searchSongsResponse.getLyric();
+
+            if (code == Response.NETEASE_QUERY_SUCCESSFUL.getCODE()) {
+                if (StringUtils.isNotEmpty(lyric)) {
+                    response.put("lyric", lyric);
+                } else {
+                    response.put("lyric", lyric);
+                }
             } else {
                 throw new QueryFailureException(CustomizedException.QUERY_FAILURE_EXCEPTION.getCODE(),
                         CustomizedException.QUERY_FAILURE_EXCEPTION.getMESSAGE());
