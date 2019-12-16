@@ -105,6 +105,45 @@ public class FileUtil {
     }
 
     /**
+     * 下载歌词
+     *
+     * @param lyric
+     * @param artistNames
+     * @param songName
+     * @throws IOException
+     * @throws DownloadFailureException
+     */
+    public static void downloadLyric(String lyric, List<String> artistNames, String songName)
+            throws IOException, DownloadFailureException {
+        PrintStream ps = null;
+
+        try {
+            File directory = new File(downloadConfig.getDirectoryPath());
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String filename = downloadConfig.getDirectoryPath() + renameLyricFileName(artistNames, songName);
+            File file = new File(filename);
+            ps = new PrintStream(file);
+            ps.print(lyric);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (DownloadFailureException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DownloadFailureException(CustomizedException.DOWNLOAD_FAILURE_EXCEPTION.getCODE(),
+                    CustomizedException.DOWNLOAD_FAILURE_EXCEPTION.getMESSAGE());
+        } finally {
+            IOUtil.close(ps);
+        }
+    }
+
+    /**
      * 重命名下载的音乐文件
      *
      * @param artistNames
@@ -122,6 +161,31 @@ public class FileUtil {
             }
             return builder.deleteCharAt(builder.length() - 1).append("-").append(songName)
                     .append(downloadConfig.getSongSuffix()).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DownloadFailureException(CustomizedException.DOWNLOAD_FAILURE_EXCEPTION.getCODE(),
+                    CustomizedException.DOWNLOAD_FAILURE_EXCEPTION.getMESSAGE());
+        }
+    }
+
+    /**
+     * 重命名下载的歌词文件
+     *
+     * @param artistNames
+     * @param songName
+     * @return
+     * @throws DownloadFailureException
+     */
+    private static String renameLyricFileName(List<String> artistNames, String songName)
+            throws DownloadFailureException {
+        try {
+            StringBuilder builder = new StringBuilder();
+
+            for (String artistName : artistNames) {
+                builder.append(artistName).append("&");
+            }
+            return builder.deleteCharAt(builder.length() - 1).append("-").append(songName)
+                    .append(downloadConfig.getLyricSuffix()).toString();
         } catch (Exception e) {
             e.printStackTrace();
             throw new DownloadFailureException(CustomizedException.DOWNLOAD_FAILURE_EXCEPTION.getCODE(),
