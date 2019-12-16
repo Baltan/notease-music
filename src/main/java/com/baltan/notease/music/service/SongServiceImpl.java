@@ -112,7 +112,7 @@ public class SongServiceImpl implements SongService {
         String responseMessage = Response.SUCCESSFUL.getMESSAGE();
 
         try {
-            long id = (long) params.get("id");
+            String id = (String) params.get("id");
             List<String> artistNames = (List<String>) params.get("artistNames");
             String songName = (String) params.get("songName");
             FileUtil.downloadSong(id, artistNames, songName);
