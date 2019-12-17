@@ -21,6 +21,7 @@ public class NeteaseConfig {
     private String charset;
     private String searchSongsRequestUrl;
     private String searchLyricRequestUrl;
+    private String searchAlbumsRequestUrl;
 
     public String getModules() {
         return modules;
@@ -94,6 +95,14 @@ public class NeteaseConfig {
         this.searchLyricRequestUrl = searchLyricRequestUrl;
     }
 
+    public String getSearchAlbumsRequestUrl() {
+        return searchAlbumsRequestUrl;
+    }
+
+    public void setSearchAlbumsRequestUrl(String searchAlbumsRequestUrl) {
+        this.searchAlbumsRequestUrl = searchAlbumsRequestUrl;
+    }
+
     @Override
     public String toString() {
         return "NeteaseConfig{" +
@@ -106,6 +115,7 @@ public class NeteaseConfig {
                 ", charset='" + charset + '\'' +
                 ", searchSongsRequestUrl='" + searchSongsRequestUrl + '\'' +
                 ", searchLyricRequestUrl='" + searchLyricRequestUrl + '\'' +
+                ", searchAlbumsRequestUrl='" + searchAlbumsRequestUrl + '\'' +
                 '}';
     }
 }
