@@ -13,10 +13,7 @@ import com.baltan.notease.music.exception.ResponseParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -138,6 +135,73 @@ public class ResponseParseUtil {
     }
 
     /**
+     * 查询专辑返回报文解析
+     *
+     * @param json
+     * @return
+     * @throws ResponseParseException
+     * @throws QueryFailureException
+     */
+    public static Map<String, Object> searchAlbumsParse(String json)
+            throws ResponseParseException, QueryFailureException {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            SearchAlbumsResponse searchAlbumsResponse = JSON.parseObject(json, SearchAlbumsResponse.class,
+                    Feature.IgnoreNotMatch);
+            Integer code = searchAlbumsResponse.getCode();
+            SearchAlbumsResult result = searchAlbumsResponse.getResult();
+
+            if (code == Response.NETEASE_QUERY_SUCCESSFUL.getCODE()) {
+                Integer albumCount = result.getAlbumCount();
+                List<AlbumInfo> albums = result.getAlbums();
+                List<Album> playableAlbumList = new LinkedList<>();
+                List<Album> notPlayableAlbumList = new LinkedList<>();
+
+                for (AlbumInfo albumInfo : albums) {
+                    Long id = albumInfo.getId();
+                    String albumName = albumInfo.getName();
+                    String albumCoverUrl = albumInfo.getPicUrl();
+                    Integer size = albumInfo.getSize();
+                    String type = albumInfo.getType();
+                    Long publishTime = albumInfo.getPublishTime();
+                    String company = albumInfo.getCompany();
+                    List<String> alias = albumInfo.getAlias();
+                    Artist artist = new Artist(albumInfo.getArtist().getId(),
+                            albumInfo.getArtist().getName(), albumInfo.getArtist().getAlias());
+                    List<Artist> artists = albumInfo.getArtists().stream().map(ar -> new Artist(ar.getId(),
+                            ar.getName(), ar.getAlias())).collect(Collectors.toList());
+                    Boolean playable = isPlayable(albumInfo);
+
+                    if (playable) {
+                        playableAlbumList
+                                .add(new Album(id, albumName, albumCoverUrl, size, type, publishTime, company,
+                                        alias, artist, artists, true));
+                    } else {
+                        notPlayableAlbumList
+                                .add(new Album(id, albumName, albumCoverUrl, size, type, publishTime, company,
+                                        alias, artist, artists, false));
+                    }
+                }
+                response.put("albumCount", albumCount);
+                response.put("playableAlbumList", playableAlbumList);
+                response.put("notPlayableAlbumList", notPlayableAlbumList);
+            } else {
+                throw new QueryFailureException(CustomizedException.QUERY_FAILURE_EXCEPTION.getCODE(),
+                        CustomizedException.QUERY_FAILURE_EXCEPTION.getMESSAGE());
+            }
+        } catch (QueryFailureException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseParseException(CustomizedException.RESPONSE_PARSE_EXCEPTION.getCODE(),
+                    CustomizedException.RESPONSE_PARSE_EXCEPTION.getMESSAGE());
+        }
+        return response;
+    }
+
+    /**
      * 判断歌曲能否播放
      * 参考：<a href="https://blog.csdn.net/qq_36779888/article/details/90738012"></a>
      *
@@ -158,5 +222,15 @@ public class ResponseParseUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 判断专辑能否播放
+     *
+     * @param albumInfo
+     * @return
+     */
+    private static boolean isPlayable(AlbumInfo albumInfo) {
+        return !Objects.equals(albumInfo.getStatus(), -1);
     }
 }
