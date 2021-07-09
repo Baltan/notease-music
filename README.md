@@ -1,0 +1,10 @@
+# 参考网址
+* [Java 播放MP3](https://blog.csdn.net/qq_34814092/article/details/80889813)
+* [Java工具类之音频播放与mp3转pcm](https://blog.csdn.net/sikefeng/article/details/81116395)
+* [网易云音乐（Cloudmusic）](https://api.imjad.cn/cloudmusic.md)
+* [网易云音乐接口](https://blog.csdn.net/qq_42813491/article/details/88544975#mp3_20)
+* [网易云解析](https://api.paugram.com/help/netease)
+* [网易云音乐API分析](https://www.jianshu.com/p/97e35fa456ce)
+* [酷狗音乐、QQ音乐、网易云音乐API](https://blog.csdn.net/qiuxy23/article/details/81266030)
+* [网易云音乐的常用API（搜索，歌词，mp3下载）](https://iobaka.com/blog/5.html)
+* [java获取Mp3播放时长](https://www.cnblogs.com/yansum/p/6629636.html)
